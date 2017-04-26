@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="./descriptionframe.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 frame-content">
+            <!--@formatter:off-->
+<p class="description">     I have two Servlets, a session servlet and a controller servlet.
+
+    I mapped the Session Servlet to the blank string pattern because this is the only servlet that I want tp be publicly facing. This means you can hit "http://localhost:8080/j-cubed" (or ".../j-cubed/") directly (with not following url pattern) and you will be taken to the Session servlet.
+
+    The controller servlet is mapped to /controller, however it can't be hit publicly without the "Authorized" attribute being set on the request beforehand, which can only be done by the session servlet and being validated first.
+
+    Session timeouts occur at 31 minutes. When I get tomcat to re-serve my new data I have to edit web.xml some way (or restart it entirely), and changing the session timeout variable from 30 to 31 and back again was the easiest change.</p>
+            <!--@formatter:on-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

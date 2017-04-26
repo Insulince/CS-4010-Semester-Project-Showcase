@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="./codeframe.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 frame-content">
+            <!--@formatter:off-->
+<code>&lt;%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %&gt;
+&lt;%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %&gt;
+&lt;%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %&gt;
+&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Checkout&lt;/title&gt;
+    ${sharedHeaderTags}
+
+    &lt;style&gt;
+        .form-group-item {
+            margin-top: 15px;
+        }
+
+        .left-align {
+            text-align: left;
+        }
+
+        .total {
+            font-size: 1.3em;
+        }
+    &lt;/style&gt;
+
+    &lt;script&gt;
+        function validateForm() {
+            var form = document.forms["order-form"];
+
+            var valid = true;
+            var errors = "Errors:";
+
+            if (form["name"].value == "") {
+                errors += "\n\u2022 Name cannot be blank.";
+                valid = false;
+            }
+
+            if (form["address"].value == "") {
+                errors += "\n\u2022 Address cannot be blank.";
+                valid = false;
+            }
+
+            if (form["city"].value == "") {
+                errors += "\n\u2022 City cannot be blank.";
+                valid = false;
+            }
+
+            if (form["state"].value == "") {
+                errors += "\n\u2022 State cannot be blank.";
+                valid = false;
+            }
+
+            if (form["zip-code"].value == "") {
+                errors += "\n\u2022 Zip Code cannot be blank.";
+                valid = false;
+            } else {
+                var zipCode = form["zip-code"].value;
+
+                if (zipCode.length != 5) {
+                    errors += "\n\u2022 Zip Code must be 5 characters long.";
+                    valid = false;
+                } else {
+                    for (var i = 0; i &lt; zipCode.length; i++) {
+                        if (isNaN(zipCode[i])) {
+                            errors += "\n\u2022 Zip Code can't contain letters.";
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (form["credit-card-number"].value == "") {
+                errors += "\n\u2022 Credit Card Number cannot be blank.";
+                valid = false;
+            } else {
+                var creditCardNumber = form["credit-card-number"].value;
+                var defaultNumber = false;
+
+                for (var i = 0; i &lt; creditCardNumber.length; i++) {
+                    if (creditCardNumber[i] == "\u2022") {
+                        defaultNumber = true;
+                        break;
+                    }
+                }
+                if (!defaultNumber) {
+                    if (creditCardNumber.length != 16) {
+                        errors += "\n\u2022 Credit Card Number must be 16 characters long.";
+                        valid = false;
+                    } else {
+                        for (var i = 0; i &lt; creditCardNumber.length; i++) {
+                            if (isNaN(creditCardNumber[i])) {
+                                errors += "\n\u2022 Credit Card Numbers can't contain letters.";
+                                valid = false;
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    if (valid) {
+                        form["credit-card-number"].value = "0000000000000000";
+                    }
+                }
+            }
+
+
+            if (!valid) {
+                alert(errors);
+            }
+
+            return valid;
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="nav"&gt;
+    &lt;form action="./" method="get"&gt;
+        &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+        &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+        &lt;input type="hidden" name="action" value="go-to-home"/&gt;
+        &lt;a href='#' onclick='this.parentNode.submit(); return false;'&gt;
+            &lt;h1 id="title"&gt;J&lt;sup&gt;3&lt;/sup&gt;&lt;/h1&gt;
+        &lt;/a&gt;
+    &lt;/form&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-store"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="Store"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="random"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="Random Item"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-my-cart"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="My Cart"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-my-account"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="My Account"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id="page-title"&gt;Checkout&lt;/h1&gt;
+
+&lt;div class="container-fluid"&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-md-8 col-md-offset-2"&gt;
+            &lt;h3&gt;Order Summary&lt;/h3&gt;
+            &lt;ul class="list-group" id="order-summary"&gt;
+                &lt;c:set var="i" value="0"/&gt;
+                &lt;c:set var="totalPrice" value="0"/&gt;
+                &lt;c:forEach items="${user.cart}" var="item"&gt;
+                    &lt;c:set var="i" value="${i + 1}"/&gt;
+                    &lt;c:set var="totalPrice" value="${totalPrice + item.price}"/&gt;
+                    &lt;li class="list-group-item"&gt;${item.name} at $${item.price}&lt;/li&gt;
+                &lt;/c:forEach&gt;
+                &lt;li class="list-group-item total"&gt;&lt;b&gt;Total: &lt;fmt:formatNumber value="${totalPrice}" type="currency"/&gt;&lt;/b&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="row"&gt;
+        &lt;div class="col-md-10 col-md-offset-1"&gt;
+            &lt;h3&gt;Shipping & Payment Information&lt;/h3&gt;
+            &lt;form name="order-form" class="form-horizontal" action="./" method="get" onsubmit="return validateForm();"&gt;
+                &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                &lt;input type="hidden" name="action" value="checkout"/&gt;
+
+                &lt;div class="form-group form-group-item"&gt;
+                    &lt;label class="control-label col-md-2" for="name"&gt;Name&lt;/label&gt;
+                    &lt;div class="col-md-10"&gt;
+                        &lt;input type="text" class="form-control left-align" id="name" name="name" value="${user.firstName != "" ? user.firstName : ""}${user.middleName != "" ? " ".concat(user.middleName) : ""}${user.lastName != "" ? " ".concat(user.lastName) : ""}" placeholder="Name"/&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class="form-group form-group-item"&gt;
+                    &lt;label class="control-label col-md-2" for="address"&gt;Address&lt;/label&gt;
+                    &lt;div class="col-md-10"&gt;
+                        &lt;input type="text" class="form-control left-align" id="address" name="address" value="${user.address != "" ? user.address : ""}" placeholder="Address"/&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class="form-group form-group-item"&gt;
+                    &lt;label class="control-label col-md-2" for="city"&gt;City&lt;/label&gt;
+                    &lt;div class="col-md-10"&gt;
+                        &lt;input type="text" class="form-control left-align" id="city" name="city" value="${user.city != "" ? user.city : ""}" placeholder="City"/&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class="form-group form-group-item"&gt;
+                    &lt;label class="control-label col-md-2" for="state"&gt;State&lt;/label&gt;
+                    &lt;div class="col-md-10"&gt;
+                        &lt;input type="text" class="form-control left-align" id="state" name="state" value="${user.state != "" ? user.state : ""}" placeholder="State"/&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class="form-group form-group-item"&gt;
+                    &lt;label class="control-label col-md-2" for="zip-code"&gt;Zip Code&lt;/label&gt;
+                    &lt;div class="col-md-10"&gt;
+                        &lt;input type="text" class="form-control left-align" id="zip-code" name="zip-code" value="${user.zipCode != "" ? user.zipCode : ""}" placeholder="Zip Code"/&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class="form-group form-group-item"&gt;
+                    &lt;label class="control-label col-md-2" for="credit-card-number"&gt;Credit Card Number&lt;/label&gt;
+                    &lt;c:set var="last4" value=""/&gt;
+                    &lt;c:if test='${user.creditCardNumber != ""}'&gt;
+                        &lt;c:set var="last4" value="${fn:substring(user.creditCardNumber, 12, 16)}"/&gt;
+                    &lt;/c:if&gt;
+                    &lt;div class="col-md-10"&gt;
+                        &lt;input type="text" class="form-control left-align" id="credit-card-number" name="credit-card-number" value="${last4 != "" ? "&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;".concat(last4) : ""}"
+                               placeholder="Credit Card Number"/&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class="col-md-offset-2 form-group-item" style="padding-left: 5px;"&gt;
+                    &lt;div class="left-align checkbox"&gt;
+                        &lt;label&gt;&lt;input type="checkbox" name="updateInformation" checked&gt; Update my information (Name and Credit Card changes can only be saved in the "My Account" page)&lt;/label&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class="form-group form-group-item"&gt;
+                    &lt;div class="left-align col-md-offset-2 col-md-10"&gt;
+                        &lt;input type="submit" class="btn btn-primary" value="Place Order"&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+            <!--@formatter:on-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

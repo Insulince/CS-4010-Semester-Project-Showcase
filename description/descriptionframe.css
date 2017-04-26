@@ -1,0 +1,17 @@
+* {
+    font-size: 18px;
+    background-color: #f6f6f6;
+}
+
+.description {
+    font-family: 'Noto Sans', sans-serif;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    color: black !important;
+    background-color: #f6f6f6 !important;
+    min-height: 100%;
+}
+
+.frame-content {
+    padding: 10px; !important;
+}

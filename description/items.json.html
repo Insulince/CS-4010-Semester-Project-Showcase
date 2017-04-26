@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="./descriptionframe.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 frame-content">
+            <!--@formatter:off-->
+<p class="description">     This is my item "database". It is simply a JSON file that I write JSON objects too using GSON, however it works exactly like a database for these purposes. The real difference it that you have to define your own functions for CRUD functionality, but that's not too bas.
+
+    The objects you see here are JSON representations of the Item class. The way I initially populated this file is by creating a bunch of Item objects and running them through Gson's serializer to turn them into these JSON objects. Anytime I need to fetch one as a Java object again, I run the JSON of that object through Gson's deserializer and it's as if the object never left.
+
+    The reason I had to make a previous and next identifier instead of just pointing to the previous and next objects themselves, is because it becomes impossible to serialize that object into JSON if it works that way. What happens is Gson starts serializing all the attributes of the current object, and once it reaches an attribute pointing to an object of the same type (Item) it attempts to deserialize that by going a level deeper. Then it finds that objects attribute of the same type and goes deeper yet. It does this on repeat until a stack overflow is encountered and the program terminates leaving the database empty.
+    So my solution was to mimic "pointers" by listing the next and previous item's identifiers and not the item itself. When it comes time to fetch the next or previous item, we simply fetch the item from the database matching that identifier and use it.</p>
+            <!--@formatter:on-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

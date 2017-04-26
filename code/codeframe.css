@@ -1,0 +1,22 @@
+* {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 18px;
+    background-color: #f6f6f6;
+}
+
+img {
+    width: 40%;
+    height: 40%;
+}
+
+code {
+    font-family: 'Source Code Pro', monospace;
+    white-space: pre;
+    color: black !important;
+    background-color: #f6f6f6 !important;
+    min-height: 100%;
+}
+
+.frame-content {
+    padding: 10px; !important;
+}

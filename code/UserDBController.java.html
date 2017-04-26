@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="./codeframe.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 frame-content">
+            <!--@formatter:off-->
+<code>package jcubed.database;
+
+import com.google.gson.reflect.TypeToken;
+import jcubed.bean.Item;
+import jcubed.bean.User;
+import jcubed.util.GsonHelper;
+
+import java.util.ArrayList;
+
+public class UserDBController {
+    private static final String PATH = "../webapps/j-cubed/database/users.json";
+
+    public static synchronized boolean addItemToCart(Item item, User user) {
+        if (item != null) {
+            if (item.isAvailable()) {
+                int newQuantity = item.getQuantity();
+                --newQuantity;
+                item.setQuantity(newQuantity);
+                ItemDBController.updateItem(item);
+
+                ArrayList&lt;Item&gt; newCart = user.getCart();
+                newCart.add(item);
+                user.setCart(newCart);
+                updateUser(user);
+
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public static synchronized boolean removeItemFromCart(Item item, User user) {
+        if (item != null) {
+            ArrayList&lt;Item&gt; usersCart = user.getCart();
+            int i = 0;
+            for (Item userItem : usersCart) {
+                if (userItem.getIdentifier().equals(item.getIdentifier())) {
+                    int newQuantity = item.getQuantity();
+                    ++newQuantity;
+                    item.setQuantity(newQuantity);
+                    ItemDBController.updateItem(item);
+
+                    ArrayList&lt;Item&gt; newCart = user.getCart();
+                    newCart.remove(i);
+                    user.setCart(newCart);
+                    updateUser(user);
+
+                    return true;
+                }
+                i++;
+            }
+
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    public static synchronized boolean emptyCart(User user) {
+        user.setCart(new ArrayList&lt;&gt;());
+
+        return updateUser(user);
+    }
+
+    ///////////////////////// CREATE /////////////////////////
+    public static synchronized boolean addUser(User newUser) {
+        ArrayList&lt;User&gt; users = getUsers();
+        return users.add(newUser) && GsonHelper.saveObjectsToFile(users, PATH);
+    }
+
+    ///////////////////////// READ /////////////////////////
+    public static synchronized ArrayList&lt;User&gt; getUsers() { //READ
+        return (ArrayList&lt;User&gt;) GsonHelper.getObjectsFromFile(PATH, new TypeToken&lt;ArrayList&lt;User&gt;&gt;() {
+        }.getType());
+    }
+
+    public static synchronized User getUserWithIdentifier(String identifier) {
+        ArrayList&lt;User&gt; users = getUsers();
+        for (User user : users) {
+            if (identifier.equals(user.getIdentifier())) {
+                return user;
+            }
+        }
+
+        return null;
+    }
+
+    public static synchronized User getUserWithUsername(String username) {
+        for (User user : getUsers()) {
+            if (username.equals(user.getUsername())) {
+                return user;
+            }
+        }
+
+        return null;
+    }
+
+    ///////////////////////// UPDATE /////////////////////////
+    public static synchronized boolean saveUsers(ArrayList&lt;User&gt; users) {
+        return GsonHelper.saveObjectsToFile(users, PATH);
+    }
+
+    public static synchronized boolean updateUser(User updatedUser) {
+        ArrayList&lt;User&gt; users = getUsers();
+
+        for (User user : users) {
+            if (updatedUser.getIdentifier().equals(user.getIdentifier())) {
+                return deleteUser(user) && addUser(updatedUser);
+            }
+        }
+
+        return false;
+    }
+
+    ///////////////////////// DELETE /////////////////////////
+    public static synchronized boolean deleteUser(User userToBeDeleted) {
+        ArrayList&lt;User&gt; users = getUsers();
+
+        for (User user : users) {
+            if (userToBeDeleted.getIdentifier().equals(user.getIdentifier())) {
+                return users.remove(user) && saveUsers(users);
+            }
+        }
+        return true;
+    }
+}</code>
+            <!--@formatter:on-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

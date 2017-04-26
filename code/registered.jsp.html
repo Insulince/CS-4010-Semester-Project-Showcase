@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="./codeframe.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 frame-content">
+            <!--@formatter:off-->
+<code>&lt;%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+    &lt;c:choose&gt;
+        &lt;c:when test="${registered}"&gt;
+            &lt;title&gt;Registration Successful&lt;/title&gt;
+        &lt;/c:when&gt;
+        &lt;c:otherwise&gt;
+            &lt;title&gt;Registration Failed&lt;/title&gt;
+        &lt;/c:otherwise&gt;
+    &lt;/c:choose&gt;
+    ${sharedHeaderTags}
+    &lt;style&gt;
+        .content {
+            margin-top: 15px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="nav"&gt;
+    &lt;form action="./" method="get"&gt;
+        &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+        &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+        &lt;input type="hidden" name="action" value="go-to-home"/&gt;
+        &lt;a href='#' onclick='this.parentNode.submit(); return false;'&gt;
+            &lt;h1 id="title"&gt;J&lt;sup&gt;3&lt;/sup&gt;&lt;/h1&gt;
+        &lt;/a&gt;
+    &lt;/form&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-store"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="Store" disabled/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="random"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="Random Item" disabled/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-my-cart"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="My Cart" disabled/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-my-account"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="My Account" disabled/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="container-fluid"&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-md-10 col-md-offset-1"&gt;
+            &lt;c:choose&gt;
+                &lt;c:when test="${registered}"&gt;
+                    &lt;h1 id="page-title"&gt;Registration Successful!&lt;/h1&gt;
+
+                    &lt;div class="content"&gt;
+                        &lt;p&gt;${message}&lt;/p&gt;
+                        &lt;form action="./" method="get"&gt;
+                            &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                            &lt;input type="hidden" name="action" value="go-to-login"/&gt;
+
+                            &lt;input class="btn btn-primary" type="submit" value="Go to Login"/&gt;
+                        &lt;/form&gt;
+                    &lt;/div&gt;
+                &lt;/c:when&gt;
+                &lt;c:otherwise&gt;
+                    &lt;h1 id="page-title"&gt;Registration Failed!&lt;/h1&gt;
+
+                    &lt;div class="content"&gt;
+                        &lt;p&gt;${message}&lt;/p&gt;
+                        &lt;div class="container-fluid"&gt;
+                            &lt;div class="row"&gt;
+                                &lt;div class="col-md-6"&gt;
+                                    &lt;form action="./" method="get"&gt;
+                                        &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                                        &lt;input type="hidden" name="action" value="go-to-register"/&gt;
+
+                                        &lt;input class="btn btn-success" type="submit" value="Try Again"/&gt;
+                                    &lt;/form&gt;
+
+                                &lt;/div&gt;
+                                &lt;div class="col-md-6"&gt;
+                                    &lt;form action="./" method="get"&gt;
+                                        &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                                        &lt;input type="hidden" name="action" value="go-to-login"/&gt;
+
+                                        &lt;input class="btn btn-primary" type="submit" value="Go to Login"&gt;
+                                    &lt;/form&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/c:otherwise&gt;
+            &lt;/c:choose&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+            <!--@formatter:on-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

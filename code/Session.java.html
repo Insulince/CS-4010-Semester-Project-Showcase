@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="./codeframe.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 frame-content">
+            <!--@formatter:off-->
+<code>package jcubed.util;
+
+import java.util.Date;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+public class Session {
+    public static final long ACTIVE_TIME_LIMIT = 15000;
+    public static final long CREATION_TIME_LIMIT = 30000;
+    public static final int SESSION_IDENTIFIER_LENGTH = 32;
+
+    private final String identifier;
+    private final Date creationDate;
+    private Date lastActiveDate;
+
+    public Session() {
+        this.identifier = generateRandomIdentifier();
+        this.creationDate = new Date();
+        this.lastActiveDate = new Date();
+    }
+
+    public String getIdentifier() {
+        return this.identifier;
+    }
+
+    public Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public Date getLastActiveDate() {
+        return this.lastActiveDate;
+    }
+
+    private static String generateRandomIdentifier() {
+        return new Random()
+                .ints(0, 52)
+                .limit(SESSION_IDENTIFIER_LENGTH)
+                .mapToObj((character) -&gt; Character.toString((char) (character &lt; 26 ? character + 'A' : character + 'a' - 26)))
+                .collect(Collectors.joining());
+    }
+}
+</code>
+            <!--@formatter:on-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

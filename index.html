@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link href="./main.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+        function toggle(id) {
+            if ($("#" + id).children(':visible').length == 0) {
+                $("#" + id).children().show();
+            } else {
+                $("#" + id).children().hide();
+            }
+        }
+
+        function navigateTo(fileName) {
+            console.log(fileName);
+
+            window.codeframe.location = "./code/" + fileName + ".html";
+            window.descriptionframe.location = "./description/" + fileName + ".html";
+        }
+    </script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1" id="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 title">
+                        <h1>Semester Project Showcase</h1>
+                    </div>
+                </div>
+                <div class="row content">
+                    <div class="col-md-3">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12 subtitle">
+                                    <h2>Project Structure</h2>
+                                </div>
+                            </div>
+                            <div class="row project-structure-row">
+                                <div class="col-md-12 project-structure-wrapper">
+                                    <p class="project-structure-folder" onclick="toggle(this.innerHTML)">j-cubed</p>
+                                    <div class="project-structure" id="j-cubed">
+                                        <p class="project-structure-folder" onclick="toggle(this.innerHTML)">assets</p>
+                                        <div class="project-structure" id="assets">
+                                            <p class="project-structure-folder" onclick="toggle(this.innerHTML)">images</p>
+                                            <div class="project-structure" id="images">
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">1x1.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">2x2.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">4x4.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">5x5.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">6x6.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">7x7.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">8x8.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">9x9.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">11x11.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">axis-cube.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">fisher-cube.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">gigaminx.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">helicopter-cube.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">kilominx.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">left-chevron.png</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">master-skewb.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">megaminx.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">megaminx-2x2.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">monominx.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">petaminx.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">pyraminx.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">pyraminx-1x1.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">pyraminx-2x2.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">pyraminx-4x4.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">pyraminx-5x5.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">right-chevron.png</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">rubiks-cube.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">siamese-cube.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">skewb.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">square-1.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">square-2.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">teraminx.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">windmill-cube.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">x.png</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">yottaminx.jpg</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">zetaminx.jpg</p>
+                                            </div>
+                                        </div>
+                                        <p class="project-structure-folder" onclick="toggle(this.innerHTML)">database</p>
+                                        <div class="project-structure" id="database">
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">items.json</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">users.json</p>
+                                        </div>
+                                        <p class="project-structure-folder" onclick="toggle(this.innerHTML)">lib</p>
+                                        <div class="project-structure" id="lib">
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">javax.annotation.jar</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">javax.ejb.jar</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">javax.jms.jar</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">javax.persistence.jar</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">javax.resource.jar</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">javax.servlet.jar</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">javax.servlet.jsp.jar</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">javax.servlet.jsp.jstl.jar</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">javax.transaction.jar</p>
+                                        </div>
+                                        <p class="project-structure-folder" onclick="toggle(this.innerHTML)">src</p>
+                                        <div class="project-structure" id="src">
+                                            <p class="project-structure-folder" onclick="toggle('src-' + this.innerHTML)">jcubed</p>
+                                            <div class="project-structure" id="src-jcubed">
+                                                <p class="project-structure-folder" onclick="toggle('src-' + this.innerHTML)">bean</p>
+                                                <div class="project-structure" id="src-bean">
+                                                    <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">Item.java</p>
+                                                    <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">User.java</p>
+                                                </div>
+                                                <p class="project-structure-folder" onclick="toggle('src-' + this.innerHTML)">database</p>
+                                                <div class="project-structure" id="src-database">
+                                                    <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">ItemDBController.java</p>
+                                                    <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">UserDBController.java</p>
+                                                </div>
+                                                <p class="project-structure-folder" onclick="toggle('src-' + this.innerHTML)">servlet</p>
+                                                <div class="project-structure" id="src-servlet">
+                                                    <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">ControllerServlet.java</p>
+                                                    <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">SessionServlet.java</p>
+                                                </div>
+                                                <p class="project-structure-folder" onclick="toggle('src-' + this.innerHTML)">util</p>
+                                                <div class="project-structure" id="src-util">
+                                                    <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">ForwardObject.java</p>
+                                                    <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">GsonHelper.java</p>
+                                                    <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">Lo.java</p>
+                                                    <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">Session.java</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="project-structure-folder" onclick="toggle(this.innerHTML)">views</p>
+                                        <div class="project-structure" id="views">
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">checkout.jsp</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">error.jsp</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">home.jsp</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">item.jsp</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">login.jsp</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">main.css</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">my-account.jsp</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">my-cart.jsp</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">order-placed.jsp</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">register.jsp</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">registered.jsp</p>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">store.jsp</p>
+                                        </div>
+                                        <p class="project-structure-folder" onclick="toggle(this.innerHTML)">WEB-INF</p>
+                                        <div class="project-structure" id="WEB-INF">
+                                            <p class="project-structure-folder" onclick="toggle(this.innerHTML)">classes</p>
+                                            <div class="project-structure" id="classes">
+                                                <p class="project-structure-folder" onclick="toggle('classes-' + this.innerHTML)">jcubed</p>
+                                                <div class="project-structure" id="classes-jcubed">
+                                                    <p class="project-structure-folder" onclick="toggle('classes-' + this.innerHTML)">bean</p>
+                                                    <div class="project-structure" id="classes-bean">
+                                                        <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">Item.class</p>
+                                                        <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">User.class</p>
+                                                    </div>
+                                                    <p class="project-structure-folder" onclick="toggle('classes-' + this.innerHTML)">database</p>
+                                                    <div class="project-structure" id="classes-database">
+                                                        <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">ItemDBController.class</p>
+                                                        <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">UserDBController.class</p>
+                                                    </div>
+                                                    <p class="project-structure-folder" onclick="toggle('classes-' + this.innerHTML)">servlet</p>
+                                                    <div class="project-structure" id="classes-servlet">
+                                                        <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">ControllerServlet.class</p>
+                                                        <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">SessionServlet.class</p>
+                                                    </div>
+                                                    <p class="project-structure-folder" onclick="toggle('classes-' + this.innerHTML)">util</p>
+                                                    <div class="project-structure" id="classes-util">
+                                                        <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">ForwardObject.class</p>
+                                                        <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">GsonHelper.class</p>
+                                                        <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">Lo.class</p>
+                                                        <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">Session.class</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="project-structure-folder" onclick="toggle('WEB-INF-' + this.innerHTML)">lib</p>
+                                            <div class="project-structure" id="WEB-INF-lib">
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">gson-2.8.0.jar</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">json-simple-1.1.1.jar</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">taglibs-standard-compat-1.2.5.jar</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">taglibs-standard-impl-1.2.5.jar</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">taglibs-standard-jstlel-1.2.5.jar</p>
+                                                <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">taglibs-standard-spec-1.2.5.jar</p>
+                                            </div>
+                                            <p onclick="navigateTo(this.innerHTML);" class="project-structure-link">web.xml</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12 subtitle">
+                                    <h2>Description</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 description-frame-row">
+                                    <iframe id="descriptionframe" class="frame" src="./description/no-description.html" name="descriptionframe" frameborder="0">This browser does not support iframes.</iframe>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 subtitle">
+                                    <h2>Code</h2>
+                                </div>
+                                <div class="col-md-12 code-frame-row">
+                                    <iframe id="codeframe" class="frame" src="./code/no-code.html" name="codeframe" frameborder="0">This browser does not support iframes.</iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row bottom-spacer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

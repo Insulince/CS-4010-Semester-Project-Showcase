@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="./codeframe.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 frame-content">
+            <!--@formatter:off-->
+<code>&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
+&lt;%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    ${sharedHeaderTags}
+
+    &lt;style&gt;
+        #next-wrapper {
+            position: absolute;
+            height: 150px;
+            width: 150px;
+            top: calc(50vh - 75px);
+            left: calc(100vw - 150px);
+        }
+
+        #next-button {
+            height: 100%;
+            width: 100%;
+            border: none;
+            background: url(assets/images/right-chevron.png) no-repeat;
+            background-size: 150px 150px;
+        }
+
+        #previous-wrapper {
+            position: absolute;
+            height: 150px;
+            width: 150px;
+            top: calc(50vh - 75px);
+            left: 0;
+        }
+
+        #previous-button {
+            height: 100%;
+            width: 100%;
+            border: none;
+            background: url(assets/images/left-chevron.png) no-repeat;
+            background-size: 150px 150px;
+        }
+
+        #item-image {
+            height: 100%;
+            width: 100%;
+            border: solid 2px #aaaaaa
+        }
+
+        #item-image-container {
+            height: 50vh;
+            width: 100%;
+        }
+
+        #item-wrapper {
+            border: 3px solid #888888;
+            margin-top: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            background-color: #dddddd;
+        }
+
+        #details-container {
+            padding-right: 0;
+        }
+
+        #image-container {
+            padding-left: 0;
+        }
+
+        #details-wrapper {
+            width: 100%;
+            height: 50vh;
+            border: 2px solid #aaaaaa;
+            background-color: #eeeeee;
+        }
+
+        #price, #quantity {
+            font-size: 2.2em;
+        }
+
+        #description {
+            font-size: 1.5em;
+        }
+
+        #price-quantity-container {
+            padding-top: 8%;
+            height: 30%;
+        }
+
+        #description-container {
+            height: 45%;
+        }
+
+        #cart-container {
+            height: 25%;
+            padding: 10px;
+        }
+
+        .cart-button {
+            height: 80%;
+        }
+
+        .available {
+            color: green;
+        }
+
+        .unavailable {
+            color: red;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="nav"&gt;
+    &lt;form action="./" method="get"&gt;
+        &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+        &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+        &lt;input type="hidden" name="action" value="go-to-home"/&gt;
+        &lt;a href='#' onclick='this.parentNode.submit(); return false;'&gt;
+            &lt;h1 id="title"&gt;J&lt;sup&gt;3&lt;/sup&gt;&lt;/h1&gt;
+        &lt;/a&gt;
+    &lt;/form&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-store"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="Store"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="random"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="Random Item"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-my-cart"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="My Cart"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-my-account"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="My Account"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="next-wrapper"&gt;
+    &lt;form action="./" method="get"&gt;
+        &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+        &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+        &lt;input type="hidden" name="action" value="next-item"/&gt;
+        &lt;input type="hidden" name="nextIdentifier" value="${item.nextIdentifier}"/&gt;
+
+        &lt;input id="next-button" class="btn btn-default" type="submit" value="" &lt;c:if test="${item.nextIdentifier == null}"&gt;disabled&lt;/c:if&gt;/&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+
+&lt;div id="previous-wrapper"&gt;
+    &lt;form action="./" method="get"&gt;
+        &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+        &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+        &lt;input type="hidden" name="action" value="previous-item"/&gt;
+        &lt;input type="hidden" name="previousIdentifier" value="${item.previousIdentifier}"/&gt;
+
+        &lt;input id="previous-button" class="btn btn-default" type="submit" value="" &lt;c:if test="${item.previousIdentifier == null}"&gt;disabled&lt;/c:if&gt;/&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+
+&lt;h1 id="page-title"&gt;${item.name}&lt;/h1&gt;
+
+&lt;c:choose&gt;
+    &lt;c:when test="${addedToCart == 'yes'}"&gt;
+        &lt;p class="available"&gt;${requestedItem.name} added to your cart!&lt;/p&gt;
+    &lt;/c:when&gt;
+    &lt;c:when test="${addedToCart == 'no'}"&gt;
+        &lt;p class="unavailable"&gt;${requestedItem.name} could not be added to your cart!&lt;/p&gt;
+    &lt;/c:when&gt;
+&lt;/c:choose&gt;
+
+&lt;div class="container-fluid"&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-md-8 col-md-offset-2"&gt;
+            &lt;div id="item-wrapper"&gt;
+                &lt;div class="container-fluid"&gt;
+                    &lt;div class="row"&gt;
+                        &lt;div id="image-container" class="col-md-5"&gt;
+                            &lt;div id="item-image-container"&gt;
+                                &lt;img id="item-image" src="${pageContext.request.contextPath}/assets/images/${item.imageUrl}" alt="${item.name} image could not be loaded"/&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div id="details-container" class="col-md-7"&gt;
+                            &lt;div id="details-wrapper" class="container-fluid"&gt;
+                                &lt;div class="row" id="price-quantity-container"&gt;
+                                    &lt;div class="col-md-6"&gt;
+                                        &lt;p id="price"&gt;$${item.price}&lt;/p&gt;
+                                    &lt;/div&gt;
+                                    &lt;div class="col-md-6"&gt;
+                                        &lt;p id="quantity"&gt;&lt;b class="&lt;c:if test="${item.available}"&gt;available&lt;/c:if&gt;&lt;c:if test="${!item.available}"&gt;unavailable&lt;/c:if&gt;"&gt;${item.quantity}&lt;/b&gt; in stock&lt;/p&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                                &lt;div class="row" id="description-container"&gt;
+                                    &lt;div class="col-md-12"&gt;
+                                        &lt;p id="description"&gt;Description: ${item.description}&lt;/p&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                                &lt;div class="row" id="cart-container"&gt;
+                                    &lt;div class="col-md-8"&gt;
+                                        &lt;form action="./" method="get"&gt;
+                                            &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                                            &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                                            &lt;input type="hidden" name="itemIdentifier" value="${item.identifier}"/&gt;
+                                            &lt;input type="hidden" name="action" value="add-to-cart-from-item"/&gt;
+
+                                            &lt;input class="cart-button nav-button btn btn-&lt;c:if test="${item.available}"&gt;success&lt;/c:if&gt;&lt;c:if test="${!item.available}"&gt;danger&lt;/c:if&gt;" type="submit" value="Add to Cart" &lt;c:if test="${item.quantity == 0}"&gt;disabled&lt;/c:if&gt;/&gt;
+                                        &lt;/form&gt;
+                                    &lt;/div&gt;
+                                    &lt;div class="col-md-4"&gt;
+                                        &lt;form action="./" method="get"&gt;
+                                            &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                                            &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                                            &lt;input type="hidden" name="action" value="go-to-my-cart"/&gt;
+
+                                            &lt;input class="cart-button nav-button btn btn-primary" type="submit" value="View Cart"/&gt;
+                                        &lt;/form&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+            <!--@formatter:on-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

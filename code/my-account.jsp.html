@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="./codeframe.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 frame-content">
+            <!--@formatter:off-->
+<code>&lt;%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %&gt;
+&lt;%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+    ${sharedHeaderTags}
+    &lt;style&gt;
+        .suppressed {
+            color: lightgrey;
+        }
+
+        .info-table {
+            border: solid 3px #aaaaaa;
+        }
+
+        .action-button {
+            height: 50px;
+            width: 10vw;
+        }
+
+        .left-align {
+            text-align: left;
+        }
+
+        .right-align {
+            text-align: right;
+        }
+
+        .content {
+            padding-top: 15px;
+        }
+    &lt;/style&gt;
+    &lt;script&gt;
+        function validateForm() {
+            var form = document.forms["changes-form"];
+
+            var valid = true;
+            var errors = "Errors:";
+
+            if (form["email"] == "") {
+                valid = false;
+                errors += "\n\u2022 Email can't be blank."
+            }
+
+            if (form["zipCode"].value != "") {
+                var zipCode = form["zipCode"].value;
+
+                if (zipCode.length != 5) {
+                    errors += "\n\u2022 Zip Code must be 5 characters long.";
+                    valid = false;
+                } else {
+                    for (var i = 0; i &lt; zipCode.length; i++) {
+                        if (isNaN(zipCode[i])) {
+                            errors += "\n\u2022 Zip Code can't contain letters.";
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (form["creditCardNumber"].value != "") {
+                var creditCardNumber = form["creditCardNumber"].value;
+                var defaultNumber = false;
+
+                for (var i = 0; i &lt; creditCardNumber.length; i++) {
+                    if (creditCardNumber[i] == "\u2022") {
+                        defaultNumber = true;
+                        break;
+                    }
+                }
+                if (!defaultNumber) {
+                    if (creditCardNumber.length != 16) {
+                        errors += "\n\u2022 Credit Card Number must be 16 characters long.";
+                        valid = false;
+                    } else {
+                        for (var i = 0; i &lt; creditCardNumber.length; i++) {
+                            if (isNaN(creditCardNumber[i])) {
+                                errors += "\n\u2022 Credit Card Numbers can't contain letters.";
+                                valid = false;
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    if (valid) {
+                        form["creditCardNumber"].value = "0000000000000000";
+                    }
+                }
+            }
+
+            if (!valid) {
+                alert(errors);
+            }
+
+            return valid;
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="nav"&gt;
+    &lt;form action="./" method="get"&gt;
+        &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+        &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+        &lt;input type="hidden" name="action" value="go-to-home"/&gt;
+        &lt;a href='#' onclick='this.parentNode.submit(); return false;'&gt;
+            &lt;h1 id="title"&gt;J&lt;sup&gt;3&lt;/sup&gt;&lt;/h1&gt;
+        &lt;/a&gt;
+    &lt;/form&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-store"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="Store"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="random"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="Random Item"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-my-cart"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="My Cart"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3"&gt;
+                &lt;form action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="go-to-my-account"/&gt;
+
+                    &lt;input class="nav-button btn btn-primary" type="submit" value="My Account"/&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id="page-title"&gt;My Account&lt;/h1&gt;
+
+&lt;div class="content container-fluid"&gt;
+    &lt;div class="row"&gt;
+        &lt;c:choose&gt;
+            &lt;c:when test='${mode == "view"}'&gt;
+                &lt;div class="col-md-5 col-md-offset-1"&gt;
+                    &lt;div class="personal-info-wrapper"&gt;
+                        &lt;table class="info-table table table-striped table-bordered table-hover"&gt;
+                            &lt;tr&gt;
+                                &lt;th colspan="2"&gt;Personal Information&lt;/th&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Username&lt;/td&gt;
+                                &lt;td&gt;${user.username}&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Password&lt;/td&gt;
+                                &lt;td&gt;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Email&lt;/td&gt;
+                                &lt;td&gt;${user.email}&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;First name&lt;/td&gt;
+                                &lt;td&gt;${user.firstName != "" ? user.firstName : "&lt;p class='suppressed'&gt;[not set]&lt;/p&gt;"}&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Middle name&lt;/td&gt;
+                                &lt;td&gt;${user.middleName != "" ? user.middleName : "&lt;p class='suppressed'&gt;[not set]&lt;/p&gt;"}&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Last name&lt;/td&gt;
+                                &lt;td&gt;${user.lastName != "" ? user.lastName : "&lt;p class='suppressed'&gt;[not set]&lt;/p&gt;"}&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Date of Birth&lt;/td&gt;
+                                &lt;td&gt;${user.dateOfBirth != "" ? user.dateOfBirth : "&lt;p class='suppressed'&gt;[not set]&lt;/p&gt;"}&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Gender&lt;/td&gt;
+                                &lt;td&gt;${user.gender != "" ? user.gender : "&lt;p class='suppressed'&gt;[not set]&lt;/p&gt;"}&lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/table&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-5"&gt;
+                    &lt;div class="payment-info-wrapper"&gt;
+                        &lt;table class="info-table table table-striped table-bordered table-hover"&gt;
+                            &lt;tr&gt;
+                                &lt;th colspan="2"&gt;Payment & Shipping Information&lt;/th&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Address&lt;/td&gt;
+                                &lt;td&gt;${user.address != "" ? user.address : "&lt;p class='suppressed'&gt;[not set]&lt;/p&gt;"}&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;City&lt;/td&gt;
+                                &lt;td&gt;${user.city != "" ? user.city : "&lt;p class='suppressed'&gt;[not set]&lt;/p&gt;"}&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;State&lt;/td&gt;
+                                &lt;td&gt;${user.state != "" ? user.state : "&lt;p class='suppressed'&gt;[not set]&lt;/p&gt;"}&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Zip Code&lt;/td&gt;
+                                &lt;td&gt;${user.zipCode != "" ? user.zipCode : "&lt;p class='suppressed'&gt;[not set]&lt;/p&gt;"}&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Credit Card Number&lt;/td&gt;
+                                &lt;c:set var="last4" value=""/&gt;
+                                &lt;c:if test='${user.creditCardNumber != ""}'&gt;
+                                    &lt;c:set var="last4" value="${fn:substring(user.creditCardNumber, 12, 16)}"/&gt;
+                                &lt;/c:if&gt;
+                                &lt;td&gt;${last4 != "" ? "&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;".concat(last4) : "&lt;p class='suppressed'&gt;[not set]&lt;/p&gt;"}&lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/table&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/c:when&gt;
+            &lt;c:otherwise&gt;
+                &lt;form id="changes-form" action="./" method="get"&gt;
+                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                    &lt;input type="hidden" name="action" value="save-my-account"/&gt;
+
+                    &lt;div class="col-md-5 col-md-offset-1"&gt;
+                        &lt;div class="personal-info-wrapper"&gt;
+                            &lt;table class="info-table table table-striped table-bordered table-hover"&gt;
+                                &lt;tr&gt;
+                                    &lt;th colspan="2"&gt;Personal Information&lt;/th&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-3" for="username"&gt;Username&lt;/label&gt;
+                                            &lt;div class="col-md-9"&gt;&lt;input type="text" class="form-control left-align" id="username" name="username" value="${user.username != "" ? user.username : ""}" placeholder="Username" disabled/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-3" for="password"&gt;Password&lt;/label&gt;
+                                            &lt;div class="col-md-9"&gt;&lt;input type="text" class="form-control left-align" id="password" name="password" value="&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;" placeholder="Password" disabled/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-3" for="email"&gt;Email&lt;/label&gt;
+                                            &lt;div class="col-md-9"&gt;&lt;input type="email" class="form-control left-align" id="email" name="email" value="${user.email != "" ? user.email : ""}" placeholder="Email"/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-3" for="firstName"&gt;First Name&lt;/label&gt;
+                                            &lt;div class="col-md-9"&gt;&lt;input type="text" class="form-control left-align" id="firstName" name="firstName" value="${user.firstName != "" ? user.firstName : ""}" placeholder="First Name"/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-3" for="middleName"&gt;Middle Name&lt;/label&gt;
+                                            &lt;div class="col-md-9"&gt;&lt;input type="text" class="form-control left-align" id="middleName" name="middleName" value="${user.middleName != "" ? user.middleName : ""}" placeholder="Middle Name"/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-3" for="lastName"&gt;Last Name&lt;/label&gt;
+                                            &lt;div class="col-md-9"&gt;&lt;input type="text" class="form-control left-align" id="lastName" name="lastName" value="${user.lastName != "" ? user.lastName : ""}" placeholder="Last Name"/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-3" for="dateOfBirth"&gt;Date Of Birth&lt;/label&gt;
+                                            &lt;div class="col-md-9"&gt;&lt;input type="date" class="form-control left-align" id="dateOfBirth" name="dateOfBirth" value="${user.dateOfBirth != "" ? user.dateOfBirth : ""}" placeholder="Date Of Birth"/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-3" for="gender"&gt;Gender&lt;/label&gt;
+                                            &lt;div class="col-md-9"&gt;&lt;input type="text" class="form-control left-align" id="gender" name="gender" value="${user.gender != "" ? user.gender : ""}" placeholder="Gender"/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                            &lt;/table&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="col-md-5"&gt;
+                        &lt;div class="payment-info-wrapper"&gt;
+                            &lt;table class="info-table table table-striped table-bordered table-hover"&gt;
+                                &lt;tr&gt;
+                                    &lt;th colspan="2"&gt;Payment & Shipping Information&lt;/th&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-4" for="address"&gt;Address&lt;/label&gt;
+                                            &lt;div class="col-md-8"&gt;&lt;input type="text" class="form-control left-align" id="address" name="address" value="${user.address != "" ? user.address : ""}" placeholder="Address"/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-4" for="city"&gt;City&lt;/label&gt;
+                                            &lt;div class="col-md-8"&gt;&lt;input type="text" class="form-control left-align" id="city" name="city" value="${user.city != "" ? user.city : ""}" placeholder="city"/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-4" for="state"&gt;State&lt;/label&gt;
+                                            &lt;div class="col-md-8"&gt;&lt;input type="text" class="form-control left-align" id="state" name="state" value="${user.state != "" ? user.state : ""}" placeholder="State"/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-4" for="zipCode"&gt;Zip Code&lt;/label&gt;
+                                            &lt;div class="col-md-8"&gt;&lt;input type="text" class="form-control left-align" id="zipCode" name="zipCode" value="${user.zipCode != "" ? user.zipCode : ""}" placeholder="Zip Code"/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr&gt;
+                                    &lt;td colspan="2"&gt;
+                                        &lt;div class="form-group form-group-item"&gt;&lt;label class="right-align control-label col-md-4" for="creditCardNumber"&gt;Credit Card Number&lt;/label&gt;
+                                            &lt;c:set var="last4" value=""/&gt;
+                                            &lt;c:if test='${user.creditCardNumber != ""}'&gt;
+                                                &lt;c:set var="last4" value="${fn:substring(user.creditCardNumber, 12, 16)}"/&gt;
+                                            &lt;/c:if&gt;
+                                            &lt;div class="col-md-8"&gt;&lt;input type="text" class="form-control left-align" id="creditCardNumber" name="creditCardNumber"
+                                                                         value="${last4 != "" ? "&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;&bullet;".concat(last4) : ""}" placeholder="Credit Card Number"/&gt;&lt;/div&gt;
+                                        &lt;/div&gt;
+                                    &lt;/td&gt;
+                                &lt;/tr&gt;
+                            &lt;/table&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/form&gt;
+            &lt;/c:otherwise&gt;
+        &lt;/c:choose&gt;
+    &lt;/div&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-md-10 col-md-offset-1"&gt;
+            &lt;div class="container-fluid"&gt;
+                &lt;div class="row"&gt;
+                    &lt;div class="col-md-6"&gt;
+                        &lt;c:choose&gt;
+                            &lt;c:when test='${mode == "view"}'&gt;
+                                &lt;form action="./" method="get"&gt;
+                                    &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                                    &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                                    &lt;input type="hidden" name="action" value="edit-my-account"/&gt;
+
+                                    &lt;input class="action-button btn btn-primary" type="submit" value="Edit Information"&gt;
+                                &lt;/form&gt;
+                            &lt;/c:when&gt;
+                            &lt;c:otherwise&gt;
+                                &lt;button class="action-button btn btn-success" onclick="if (validateForm()) {document.getElementById('changes-form').submit();}"&gt;Save Changes&lt;/button&gt;
+                            &lt;/c:otherwise&gt;
+                        &lt;/c:choose&gt;
+                    &lt;/div&gt;
+                    &lt;div class="col-md-6"&gt;
+                        &lt;form action="./" method="get"&gt;
+                            &lt;input type="hidden" name="identifier" value="${identifier}"/&gt;
+                            &lt;input type="hidden" name="userIdentifier" value="${user.identifier}"/&gt;
+                            &lt;input type="hidden" name="action" value="logout"/&gt;
+
+                            &lt;input class="action-button btn btn-danger" type="submit" value="Logout"/&gt;
+                        &lt;/form&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+            <!--@formatter:on-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

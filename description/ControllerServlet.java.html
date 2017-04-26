@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="./descriptionframe.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 frame-content">
+            <!--@formatter:off-->
+<p class="description">  This is the main servlet of the application. It accepts get and post requests in the same manner as the session servlet.
+
+    The first thing that happens is we set the sharedHeaderTags attribute again, in case it wasn't set due to someone circumventing the session servlet (it makes the error page look nice).
+
+    Then we check for if the user is authorized from the session servlet. If they are not, we send the mto the error page.
+
+    Following that, if the user is authorized, we get the aciton string and assume it is not null (that was checked in session Servlet)
+
+    Then we get the userIdentifier parameter and use the UserDBController to query the database for a user with the given userIdentifier.
+
+    If the user was not found, we get to a chunk of code that only has access to a few actions, namely "register", "go-to-register", "go-to-home", "go-to-login", and "login". These are the set of actions that a user can take if they are not yet logged in.
+
+    If the user was found, we get in to the main functionality of the controller servlet. We go to a switch statmenet which evaluates the action parameter and delegates the task based on what it is.
+
+    *go-to-home: This action takes the user to the home page, but first we have to fetch the details for the daily featured item.
+
+        In the getHomeDetails function we set the dailyItem attribute with an item bean that was selected randomly, however this random selection is seeded each day, meaning everyone gets the same item for 24 hours, and whatever it changes too is the same everywhere still.
+
+    *go-to-store: To do this, we need to load up the request with every item in the store. This uses the ItemDBController to get all the items as an arraylist, and then we set that as an attribute called "inventory" on the request.
+
+    *view-item: This happens when a user wishes to get a more detailed view of a specific item in the store page. First we get the itemIdentifier parameter that should be passed in with the request. Then we fetch the item matching that identifier from the database. Attach it to the request and forward to the item page.
+
+    *next-item: This is used when the user is already on the view-item page and they want to view the next item in order in the store. It relies on a linked-list type of structure which each item is a part of. They have a "nextItemIdentifier" and previous, which is used to show what item follows and precedes this item. When the user click the arrow, we fetch the item with that identifier and reload the page with that data.
+
+    *previous-item: Same thing as next item except other direction.
+
+    *random: When a user clicks the "Get Random Item" button from the nav bar, they go here. We call "getRandomItem" in the ItemDBController to get a random item from the database and attach it as a bean and send it to the item.jsp page.
+
+    *go-to-my-account: This is for getting to your account. The default mode is "view", but there is also an edit view.
+
+    *add-to-cart-from-store: This is for adding items to cart from store. It is required to have this distinction because after adding we need to return to the same page we were just on, which means we have to track that somehow.
+
+    *add-to-cart-from-item: Used when adding from the detailed item view page.
+
+    *add-to-cart-from-home: Only used when the user likes the daily featured item and uses the add to cart button there.
+
+    *remove-item-from-cart: Removes the item with the passed item identifier from the users cart.
+
+    *go-to-checkout: Takes the user to the checkout page. Nothing special since all the cart information is attached to the user bean.
+
+    *checkout: This is used when the user confirms his or her order and is ready to make the purchase. We start by checking if the user wants to update his payment or personal information with the credentials added in the checkout page. If so, we do that. After, we attach the users cart as an arrayList to the request as the attribute named "orderedItems". Then we empty the users cart (this is when the order placement actually occurs, or as close to it as this web app gets). Then we re set the user so the changes to the cart take effect. Following that we send the request to the confirmation screen.
+
+    *edit-my-account: This is exactly what go-to-my-account does, except in edit mode so things can be changed.
+
+    *save-my-account: Saves the details of the account and sends us back to view mode.
+
+    *logout: Set the current user to null and go to the login page.
+
+    One of the trickiest things I have had to deal with when it came to updating users credentials was keeping certain information private. I NEVER want to see a full credit card displayed, only the last 4 digits. But because of this, I needed a string to represent when the user wants to use the default credit card he or she already entered, so I had to use 0000000000000000, which is actually pretty insecure, but the best I could come up with for now.</p>
+            <!--@formatter:on-->
+        </div>
+    </div>
+</div>
+</body>
+</html>
