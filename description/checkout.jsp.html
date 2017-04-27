@@ -14,7 +14,17 @@
     <div class="row">
         <div class="col-md-12 frame-content">
             <!--@formatter:off-->
-<p class="description"></p>
+<p class="description">     This view shows the user a final list of the items and gathers information for payment and shipping.
+
+    We display the items in a similar manner to how we did that in my-cart.jsp.
+
+    If the user likes what he sees, he can proceed to the bottom where he can enter his information. I used a lot of ternary operators within EL tags to pre-populate the fields if the data was in the database.
+
+    The only weird one is the credit card number field. This field should NEVER be displayed in case someone got a hold of your account. So if it is being prepopulated, we append it with 12 dots and then the last 4 digits. This makes for difficult form validation though, however it is handled in the javascript at the top.
+
+    Just before the submit button is a checkbox for updating the users information with the information they entered on the checkout screen.
+
+    Once the user hits the submit button, the order is placed and his cart is empty. We then go to the order-placed.jsp view.</p>
             <!--@formatter:on-->
         </div>
     </div>

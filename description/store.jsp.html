@@ -14,7 +14,11 @@
     <div class="row">
         <div class="col-md-12 frame-content">
             <!--@formatter:off-->
-<p class="description"></p>
+<p class="description">     This page outlines all the inventory we offer.
+
+    The layout is accomplished using a c:forEach and iterating across the inventory attribute that was passed in from the Controller Servlet which is an array list of item beans. We use c:set before this for loop to set a variable i to 0, and each iteration we increment i to keep track of what index we are on. To accomplish the row look, we check if i divides evenly into 4 by doing a c:if with the condition being i % 4 == 0, and if it is true we make a new row using bootstrap classes. The effect is every fourth item that is being displayed is shown on the next row, giving us a nice grid structure to display the items in.
+
+    Another interesting feature of the for loop is that I wanted every item to have a maximum height, but also give a preview of the description. These two are hard to reconcile, but I used a substring function from the fn prefixed tag library (fn:substring) to shorten descriptions that were longer than a certain length, this allows every item to have the same height.</p>
             <!--@formatter:on-->
         </div>
     </div>

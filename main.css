@@ -71,6 +71,10 @@ code {
     font-weight: bold;
 }
 
+.project-structure-folder, .project-structure-link {
+    cursor: pointer;
+}
+
 .project-structure {
     border-left: 1px dashed #b4b4b4
 }

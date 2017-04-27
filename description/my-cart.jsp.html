@@ -14,7 +14,17 @@
     <div class="row">
         <div class="col-md-12 frame-content">
             <!--@formatter:off-->
-<p class="description"></p>
+<p class="description">     This view displays all the items currently in the user's cart.
+
+    We iterate over all the items in the users cart in a similar manner to the iteration seen in store.jsp, however with another variable called totalPrice. TotalPrice gets the price of each item added to it as we iterate.
+
+    Once the iteration is done, we check if the user had any items to begin with by doing c:if on "i == 0", and if its true we display "No Items!" in the cart.
+
+    Then, using the tag library prefixed with fmt, we format the totalPrice variable to resemble american currency.
+
+    Each item also has a red X which the user can click to remove that item from his or her cart.
+
+    On the right of the screen are the checkout and continue shopping buttons.</p>
             <!--@formatter:on-->
         </div>
     </div>

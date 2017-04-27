@@ -14,7 +14,15 @@
     <div class="row">
         <div class="col-md-12 frame-content">
             <!--@formatter:off-->
-<p class="description"></p>
+<p class="description">     This view surprisingly turned out to be one of the longest and most difficult views to implement due to the need for editing account information.
+
+    When you first arrive at this view it is in "view" mode, so you only see the details of your account. Passwords are always displayed as 8 dots wether or not your password is actually 8 characters.
+
+    You can click the "Edit Information" button to be taken to the same view in "edit" mode. In this mode all the data is displayed again, however in editable text boxes. You can submit your changes once done editing and expect to see them populate next time you checkout.
+
+    One of the challenges I had here was putting the save changes button outside of the forms (I had to to make it look visually appealing). After some research, I found that there is a way to invoke a form submission from outside the form via javascript. So when you hit save changes it first validates the information and if it is valid it submits the form.
+
+    You can also log out of your account from this screen via the red Logout button.</p>
             <!--@formatter:on-->
         </div>
     </div>
