@@ -14,7 +14,11 @@
     <div class="row">
         <div class="col-md-12 frame-content">
             <!--@formatter:off-->
-<p class="description"></p>
+<p class="description">     This is my implementation of a session object for tracking users whether they are logged in or not.
+
+    Anytime a Session object is instantiated, we immediately call the generateRandomIdentifier() function which creates a random string 32 characters in length containing any of the characters from A to Z both uppercase and lowercase giving a total of 52^32 different possible identifiers. Should be sufficient for our purposes.
+
+    Anytime a user is approved by the SessionServlet we call the setLastActiveDate to reset the expiration timer.</p>
             <!--@formatter:on-->
         </div>
     </div>

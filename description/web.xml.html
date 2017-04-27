@@ -18,9 +18,7 @@
 
     I mapped the Session Servlet to the blank string pattern because this is the only servlet that I want tp be publicly facing. This means you can hit "http://localhost:8080/j-cubed" (or ".../j-cubed/") directly (with not following url pattern) and you will be taken to the Session servlet.
 
-    The controller servlet is mapped to /controller, however it can't be hit publicly without the "Authorized" attribute being set on the request beforehand, which can only be done by the session servlet and being validated first.
-
-    Session timeouts occur at 31 minutes. When I get tomcat to re-serve my new data I have to edit web.xml some way (or restart it entirely), and changing the session timeout variable from 30 to 31 and back again was the easiest change.</p>
+    The controller servlet is mapped to /controller, however it can't be hit publicly without the "Authorized" attribute being set on the request beforehand, which can only be done by the session servlet and being validated first.</p>
             <!--@formatter:on-->
         </div>
     </div>

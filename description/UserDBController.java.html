@@ -14,7 +14,17 @@
     <div class="row">
         <div class="col-md-12 frame-content">
             <!--@formatter:off-->
-<p class="description"></p>
+<p class="description">This is the class for interacting with the users database via users.json.
+
+    This controller doesn't have a main function like the other one, because we don't need to generate default users, users will register as needed.
+
+    Every function following this deals with the users.json file directly, and as such is labeled with the keyword "synchronized" which locks the method to be one thread at a time (per object, however there is only ever one UserDBController object at a time so this doesn't matter). Thus all users get serial access to the database.
+
+    This class has all the standard CRUD functions needed for a database, and they all return booleans to indicate success or failure of the operation.
+
+    In addition there are a few miscellaneous functions as well such as addItemToCart() which adds the passed item to the passed users cart then saves the changes in the database. And also removeItemFromCart() which does the same thing, just with the opposite effect.
+
+    There is also the emptyCart() function. This is only ever called when an order is placed and payment information has been processed. At this point it would be wise to use the information in the cart to start the processing and packaging of the order, but I simply empty the cart array and update the user because I am not a literal store and retaining orders seemed unnecessary for this project.</p>
             <!--@formatter:on-->
         </div>
     </div>

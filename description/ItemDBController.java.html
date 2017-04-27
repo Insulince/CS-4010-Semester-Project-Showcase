@@ -14,7 +14,17 @@
     <div class="row">
         <div class="col-md-12 frame-content">
             <!--@formatter:off-->
-<p class="description"></p>
+<p class="description">     This is the class for interacting with the items database via items.json.
+
+    It starts out with the main function, which is actually not supposed to be used more than one time to initialize the database. So if I was testing a bunch and ended up accidentally purchasing all the items in the store, I could restore it to its previous state by wiping it then running this main function.
+
+    Every function following this deals with the items.json file directly, and as such is labeled with the keyword "synchronized" which locks the method to be one thread at a time (per object, however there is only ever one ItemDBController object at a time so this doesn't matter). Thus all users get serial access to the database.
+
+    This class has all the standard CRUD functions needed for a database, and they all return booleans to indicate success or failure of the operation.
+
+    In addition there are a few miscellaneous functions as well such as getRandomItem() which is used to pick a random item for the homepage daily featured item and for the random item functionality. There is also getLastItem() which returns the last item found in the database.
+
+    Then we have the organizeById() function, which is what we use to keep the items in order. We use a lambda function to sort each item based on its id then return the permuted arraylist.</p>
             <!--@formatter:on-->
         </div>
     </div>

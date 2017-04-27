@@ -14,7 +14,23 @@
     <div class="row">
         <div class="col-md-12 frame-content">
             <!--@formatter:off-->
-<p class="description"></p>
+<p class="description">     This is one of the two beans I created for this project. This bean carries information about items in the store.
+
+    Here is a breakdown of the member variables:
+        id: Equivalent to an auto-increment primary key in a SQL database.
+        identifier: Random 32 character String generated in the same manner as session identifiers are generated.
+        name: Name of the item to be displayed.
+        price: How much the item costs.
+        quantity: How many we have in store.
+        description: Description of the item.
+        available: Boolean for if quantity > 0
+        imageUrl: Relative url of the image for this item
+        previousIdentifier: The item before this item.
+        nextIdentifier: The item after this item.
+
+    When an item is created (via the main function in the ItemDBController, not from the Servlet), we increment the number of items and assign that as the id of the item, generate a random identifier, pass in the standard information, then calculate the previous item for this item, and tell the previous item that its next item is this item.
+
+    The reason I needed an auto-increment id field is because whenever a user interacts with the store the items.json file is rewritten and the order of the items is not preserved, which rearranges the order of the items in the store.jsp view, so the id field gives a definite way to order the items.</p>
             <!--@formatter:on-->
         </div>
     </div>

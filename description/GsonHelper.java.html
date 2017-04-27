@@ -14,7 +14,11 @@
     <div class="row">
         <div class="col-md-12 frame-content">
             <!--@formatter:off-->
-<p class="description"></p>
+<p class="description">     This class is to abstract the process of using Gson so that it can work with any "database". This is the only place in the project where Gson is directly used.
+
+    saveObjectsToFile() will attempt to save an ArrayList of any type of Object to the specified file path. The main star of the function is the GSON.toJson() function call, this is where the objects are converted to json.
+
+    getObjectsFromFile() will attempt to return an ArrayList of any type of Object from a json file. The main star of this function is the GSON.fromJson() function call, this is where the json is converted back to Java objects. The only extra stuff you need is this "Type" parameter, this is basically the details of the object's class so GSON knows how to deserialize it correctly (removes some possible ambiguities from the deserialization process).</p>
             <!--@formatter:on-->
         </div>
     </div>

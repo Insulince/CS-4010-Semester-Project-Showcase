@@ -44,9 +44,11 @@
 
             i. Send this request to the error page.
 
+            ii. Remove the invalid session from the list of sessions.
+
     Session validation is done by first verifying that the session array in our storage contains a session which has an identifier that matches the identifier the user passed in. Following that, we calculate the difference between the current time and the session's last active time and detect if the user has been active in the last 15 minutes. Following that we do a hard check on the session by determining if it has been over 12 hours since the session was created. If any of these check fail, the session is invalid and we forward the user to an error page.
 
-    Note that the hard check does not care hwo active you are. This is just to determine that someone didn't sneak in at some point.</p>
+    Note that the hard check does not care how active you are. This is just to determine that someone didn't sneak in at some point.</p>
             <!--@formatter:on-->
         </div>
     </div>
