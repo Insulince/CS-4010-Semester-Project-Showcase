@@ -8,6 +8,11 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style>
+        #start {
+            color: red;
+        }
+    </style>
     <script>
         function toggle(id) {
             if ($("#" + id).children(':visible').length == 0) {
@@ -46,6 +51,7 @@
                             </div>
                             <div class="row project-structure-row">
                                 <div class="col-md-12 project-structure-wrapper">
+                                    <p onclick="navigateTo('overview');" class="project-structure-link">Overview <b id="start">(start here!)</b></p>
                                     <p class="project-structure-folder" onclick="toggle(this.innerHTML)">j-cubed</p>
                                     <div class="project-structure" id="j-cubed">
                                         <p class="project-structure-folder" onclick="toggle(this.innerHTML)">assets</p>
@@ -205,7 +211,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 description-frame-row">
-                                    <iframe id="descriptionframe" class="frame" src="./description/no-description.html" name="descriptionframe" frameborder="0">This browser does not support iframes.</iframe>
+                                    <iframe id="descriptionframe" class="frame" src="./description/overview.html" name="descriptionframe" frameborder="0">This browser does not support iframes.</iframe>
                                 </div>
                             </div>
                             <div class="row">
@@ -213,7 +219,7 @@
                                     <h2>Code</h2>
                                 </div>
                                 <div class="col-md-12 code-frame-row">
-                                    <iframe id="codeframe" class="frame" src="./code/no-code.html" name="codeframe" frameborder="0">This browser does not support iframes.</iframe>
+                                    <iframe id="codeframe" class="frame" src="./code/overview.html" name="codeframe" frameborder="0">This browser does not support iframes.</iframe>
                                 </div>
                             </div>
                         </div>

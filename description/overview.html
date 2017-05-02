@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="./descriptionframe.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Source+Code+Pro" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 frame-content">
+            <!--@formatter:off-->
+<p class="description">     Welcome to my project showcase! This site will help you understand my web app. The way it works is simple, after reading this page you can use the Project Structure pane to the left of this window to view all of my code and my commentary on it. Simply click on a page to view it. Click on a folder to expand or collapse it.
+
+    1. WHAT IT IS
+        My web app is supposed to mock a store that sells rubik's cubes and various other twisty puzzles. It requires you to have an account to access most of the functionality, and if you don't have an account you can register. Once in, you can browse, edit your account, or be taken to a random item. It comes complete with a checkout functionality, and can even retain your shipping and payment details for future purchases (I wouldn't recommend entering real details).
+
+    2. HOW IT WORKS
+        The backend is run by two servlets, the SessionServlet and the ControllerServlet.
+            The SessionServlet is mapped to "./" (to make the initial interaction with the site easier) and handles validating users and allowing them access to further site functions by tracking their session and applying the "authorized" attribute to the request (if the session is valid), then sending it off to the ControllerServlet.
+            The ControllerServlet is mapped to "./controller" and immediately checks for the authorized header and if it isn't found it redirects the user to an error page. This effectively blocks it from being accessed without first being approved by the SessionServlet. Following approval, the ControllerServlet allows you to do any of the other site functions by checking what the "action" parameter in the request contains. This is handled in a massive switch statement, and further details on it can be found in the ControllerServlet.java page from the Project Structure pane on the left.
+
+        For a data store, I used JSON files instead of a traditional database. For those of you who don't know, JSON stands for JavaScript Object Notation, and it is simply a way to encode data that is natively accessible to javascript code and with minimal tweaking, very easy to use with Java as well. I used the external library "Gson", created by Google, for serializing and deserializing Java objects into JSON objects, then I would write/read them to or from a file, which effectively makes it a database.
+            users.json is the User database which keeps track of the users, their carts, and their personal information.
+            items.json is the Item database which keeps track of what items we have in store, how much in stock, prices, and images.
+
+        There are two beans that I pass from Servlet to JSP, and those are the User and Item beans.
+            The User bean sends the details of the user to the jsp page for displaying the details of it, and it is created from the users.json database.
+            The Item bean is sent either as an ArrayList of Items, or just as a single Item, and either way it contains the details of the item{s) for displaying.
+
+        Serial access to the database is ensured through my two classes ItemDBController and UserDBController, which each control their named database. Serial access is ensured via the methods in these classes which are prefaced with the "synchronized" keyword, which forces them to operate in such a way that only one thread can be inside the method at a time, meaning only one thread can access the database at a time.
+
+        For JSPs, I have 11, each used at different times to deliver a different view to the user.
+            login.jsp is the landing page for new users, and it is where you are given the option to log in or register.
+            register.jsp is the register page.
+            registered.jsp is the registration successful or failed page.
+            home.jsp is where you are taken once successfully logged in.
+            store.jsp is the main store view, in here all the items are displayed in a grid-like view.
+            item.jsp is the detailed view of a single item, this is where you go upon clicking on an item.
+            my-cart.jsp is the cart page.
+            checkout.jsp is where you go to enter payment and personal information.
+            order-placed.jsp is the receipt page you are taken to after confirming your order.
+            my-account.jsp contains your information and lets you edit/update it with new information.
+            error.jsp is the general error page where you are taken too if changing your session string or timing out.
+
+    For further details on these, just click on a page to the left, more commentary and the literal code will populate in this and the below frames.</p>
+            <!--@formatter:on-->
+        </div>
+    </div>
+</div>
+</body>
+</html>
